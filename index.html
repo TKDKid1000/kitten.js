@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>reactive html</title>
+  </head>
+  <body style="font-family: sans-serif">
+    <div
+      id="app"
+      k-data="{
+        name: 'joe',
+        age: 0,
+        search: '',
+        items: [],
+        open: !true,
+        html: '<h1>hello</h1>',
+        get filteredItems() {
+          console.log('filtered')
+          return this.items.filter(
+            i => i.name.startsWith(this.search)
+          ).sort((a,b) => a.age-b.age)
+        }
+      }"
+    >
+      <p>
+        Name: <span k-text="this.name.toLowerCase()"></span>
+        <br />
+        Age: <span k-text="this.age"></span>
+      </p>
+      <ul>
+        <!-- <template k-for="item in $filteredItems($items, $search)">
+          <li k-text="$item.name"></li>
+        </template> -->
+      </ul>
+      <p k-text="this.items?.map(i => (`${i.name}: ${i.age}`)).join(', ')"></p>
+      <input type="text" k-bind="name" />
+      <br />
+      <button @click="this.age++">Increase Age</button>
+      <button @click="this.age > 0 && this.age--">Decrease Age</button>
+      <br />
+      <button
+        @click="this.name.length > 1 && this.age > 0 ? (this.items.push({name: this.name, age: this.age}), this.name = '', this.age = 0) : false"
+      >
+        Submit
+      </button>
+      <button @click="this.name = '', this.age = 0">Reset</button>
+      <br />
+      <input type="search" k-bind="search" />
+      <br />
+      <p k-html="this.html"></p>
+      <textarea k-bind="html"></textarea>
+      <button
+        k-text="this.open ? 'Close' : 'Open'"
+        @click="this.open = !this.open"
+      ></button>
+      <template k-if="this.open">
+        <p>conditional rendering</p>
+      </template>
+    </div>
+    <script type="module" src="/src/index.ts"></script>
+  </body>
+</html>
