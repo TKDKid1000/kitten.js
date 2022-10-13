@@ -1,6 +1,6 @@
 # kitten.js
 
-![https://placekitten.com/400/300]()
+![https://placekitten.com/400/300](https://placekitten.com/400/300)
 Source: [placekitten.com](https://placekitten.com)
 
 An easy and fun to play with javascript framework, just like a kitten! Some of the features are:
