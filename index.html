@@ -7,7 +7,19 @@
       name="description"
       content="kitten.js demo app. Demonstrates every kitten.js feature. Has perfect lighthouse scores."
     />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-eval'; object-src 'none'"
+    />
     <title>reactive html</title>
+    <style>
+      button,
+      input[type="text"],
+      input[type="search"] {
+        padding: 6px 8px;
+        margin: 1px;
+      }
+    </style>
   </head>
   <body style="font-family: sans-serif">
     <div
