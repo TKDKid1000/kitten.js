@@ -94,7 +94,10 @@ const renderReactiveChildren = (
 
   const ifElements = element.querySelectorAll("[k-if]");
   ifElements.forEach((el) => {
-    if (!shouldUpdate(el.getAttribute("k-if")!, state, changes)) return;
+    const isMounted = el.hasAttribute("k-mounted");
+    if (!(shouldUpdate(el.getAttribute("k-if")!, state, changes) || !isMounted))
+      return;
+    el.setAttribute("k-mounted", "");
     if (el.tagName !== "TEMPLATE") return;
     const template = el as HTMLTemplateElement;
     if (!template.content) return;
@@ -115,13 +118,24 @@ const renderReactiveChildren = (
   });
 
   element.querySelectorAll(`[k-text]`).forEach((el) => {
-    if (!shouldUpdate(el.getAttribute("k-text")!, state, changes)) return;
+    const isMounted = el.hasAttribute("k-mounted");
+    if (
+      !(shouldUpdate(el.getAttribute("k-text")!, state, changes) || !isMounted)
+    )
+      return;
+    el.setAttribute("k-mounted", "");
+    console.log("updating", el.getAttribute("k-text"));
     const text = el.getAttribute("k-text")!;
     el.textContent = String(evalInScope(`return (${text})`, state));
   });
 
   element.querySelectorAll(`[k-html]`).forEach((el) => {
-    if (!shouldUpdate(el.getAttribute("k-html")!, state, changes)) return;
+    const isMounted = el.hasAttribute("k-mounted");
+    if (
+      !(shouldUpdate(el.getAttribute("k-html")!, state, changes) || !isMounted)
+    )
+      return;
+    el.setAttribute("k-mounted", "");
     const text = el.getAttribute("k-html")!;
     el.innerHTML = String(evalInScope(`return (${text})`, state));
   });
@@ -166,17 +180,19 @@ export const createApp = (selector: string) => {
   const rootState = createReactiveClass({
     onUpdate(vars) {
       renderReactiveChildren(root, rootState, vars, reactiveElements);
+      // console.log(vars);
     },
   });
   Object.entries(
     evalInScope(`return (${root.getAttribute("k-data")!})`, rootState)
   ).forEach(([k, v]) => (rootState[k] = v));
 
-  console.log(rootState);
   reactiveElements.push({
     element: root,
     state: rootState,
   });
+
+  console.log(rootState);
 
   // const data = createReactiveClass({
   //   onUpdate(vars) {

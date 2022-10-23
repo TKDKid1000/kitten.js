@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="kitten.js demo app. Demonstrates every kitten.js feature. Has perfect lighthouse scores."
+    />
     <title>reactive html</title>
   </head>
   <body style="font-family: sans-serif">
@@ -15,9 +19,9 @@
         items: [],
         open: !true,
         html: '<h1>hello</h1>',
-        get filteredItems() {
+        filteredItems(items) {
           console.log('filtered')
-          return this.items.filter(
+          return items.filter(
             i => i.name.startsWith(this.search)
           ).sort((a,b) => a.age-b.age)
         }
@@ -33,23 +37,27 @@
           <li k-text="$item.name"></li>
         </template> -->
       </ul>
-      <p k-text="this.items?.map(i => (`${i.name}: ${i.age}`)).join(', ')"></p>
-      <input type="text" k-bind="name" />
+      <p k-text="'h'"></p>
+      <!-- <p
+        k-text="this.filteredItems(this.items).map(i => (`${i.name}: ${i.age}`)).join(', ')"
+      ></p> -->
+      <button @click="console.log(this)">log</button>
+      <input type="text" k-bind="name" aria-label="name input" />
       <br />
       <button @click="this.age++">Increase Age</button>
       <button @click="this.age > 0 && this.age--">Decrease Age</button>
       <br />
       <button
-        @click="this.name.length > 1 && this.age > 0 ? (this.items.push({name: this.name, age: this.age}), this.name = '', this.age = 0) : false"
+        @click="this.name.length > 1 && this.age > 0 ? (this.items = [...this.items, {name: this.name, age: this.age}], this.name = '', this.age = 0) : false"
       >
         Submit
       </button>
       <button @click="this.name = '', this.age = 0">Reset</button>
       <br />
-      <input type="search" k-bind="search" />
+      <input type="search" k-bind="search" aria-label="item search" />
       <br />
       <p k-html="this.html"></p>
-      <textarea k-bind="html"></textarea>
+      <textarea k-bind="html" aria-label="html input"></textarea>
       <button
         k-text="this.open ? 'Close' : 'Open'"
         @click="this.open = !this.open"

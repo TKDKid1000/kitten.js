@@ -6,7 +6,7 @@ Source: [placekitten.com](https://placekitten.com)
 An easy and fun to play with javascript framework, just like a kitten! Some of the features are:
 
 - **Javascript-in-html**. Your entire ui is managed using low level Javascript functions embedded directly into your html.
-- **Small and fast**. Kitten is designed to be like a real kitten, really tiny, and really quick.
+- **Small and fast**. Kitten is designed to be like a real kitten, really tiny, and really quick. Kitten is only **2.79KiB**!
 - **Easy to use**. This framework can be adopted with a single script tag, and is very good for adding small interactive bits to a website.
 
 ## Installation
