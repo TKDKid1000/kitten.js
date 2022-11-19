@@ -85,6 +85,9 @@
         @change="this.img = {...this.img, href: event.target.value}"
       />
     </div>
-    <script type="module" src="/src/index.ts"></script>
+    <script>
+      import { createApp } from "/src/index.ts";
+      createApp("#app");
+    </script>
   </body>
 </html>

@@ -1,3 +1,6 @@
 import { createApp } from "./kitten";
 
-createApp("#app");
+if (document.currentScript)
+  createApp(document.currentScript.getAttribute("k-init") ?? "#app");
+
+export { createApp };
