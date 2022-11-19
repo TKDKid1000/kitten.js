@@ -1,6 +1,5 @@
 {
   "name": "reactive",
-  "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -8,6 +7,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest --config vitest.config.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/kitten.umd.js",
+  "module": "./dist/kitten.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/kitten.es.js",
+      "require": "./dist/kitten.umd.js"
+    }
   },
   "devDependencies": {
     "typescript": "^4.6.4",

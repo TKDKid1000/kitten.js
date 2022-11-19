@@ -39,6 +39,7 @@ export const createReactiveClass = ({
 export const objEqual = (a: unknown, b: unknown) =>
   JSON.stringify(a) === JSON.stringify(b);
 
+// todo: #1 add globalThis prop that copies scope and makes it accessible as globalThis
 const evalInScope = (script: string, scope: object) =>
   Function(`"use strict"; ${script}`).bind(scope)();
 
