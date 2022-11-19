@@ -1,5 +1,5 @@
 {
-  "name": "kitten.js",
+  "name": "@kittenjs/kitten.js",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
