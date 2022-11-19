@@ -36,7 +36,8 @@
           return items.filter(
             i => i.name.startsWith(this.search)
           ).sort((a,b) => a.age-b.age)
-        }
+        },
+        img: new URL('http://placekitten.com/200/300')
       }"
     >
       <p>
@@ -77,6 +78,12 @@
       <template k-if="this.open">
         <p>conditional rendering</p>
       </template>
+      <br />
+      <img !src="this.img?.href" />
+      <input
+        type="text"
+        @change="this.img = {...this.img, href: event.target.value}"
+      />
     </div>
     <script type="module" src="/src/index.ts"></script>
   </body>

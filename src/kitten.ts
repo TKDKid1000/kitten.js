@@ -40,8 +40,8 @@ export const objEqual = (a: unknown, b: unknown) =>
   JSON.stringify(a) === JSON.stringify(b);
 
 // todo: #1 add globalThis prop that copies scope and makes it accessible as globalThis
-const evalInScope = (script: string, scope: object) =>
-  Function(`"use strict"; ${script}`).bind(scope)();
+const evalInScope = (script: string, scope: object, ...args: object[]) =>
+  Function(`"use strict"; ${script}`).bind(scope, ...args)();
 
 const shouldUpdate = (
   text: string,
@@ -159,13 +159,22 @@ const renderReactiveChildren = (
 
   allElements.forEach((el) => {
     el.getAttributeNames().forEach((attribute) => {
-      if (!attribute.startsWith("@")) return;
-      const eventName = attribute.substring(1) as keyof ElementEventMap;
-      const action = el.getAttribute(attribute)!;
-      const element = el as HTMLElement;
-      element[`on${eventName}`] = () => {
-        evalInScope(action, state);
-      };
+      if (attribute.startsWith("@")) {
+        const eventName = attribute.substring(1) as keyof ElementEventMap;
+        const action = el.getAttribute(attribute)!;
+        const element = el as HTMLElement;
+        element[`on${eventName}`] = (event) => {
+          evalInScope(action, state, event);
+        };
+      }
+      if (attribute.startsWith("!")) {
+        const attributeName = attribute.substring(1);
+        const value = el.getAttribute(attribute)!;
+        console.log({ value, state: { ...state } });
+        const parsed = String(evalInScope(`return (${value})`, state));
+        console.log({ parsed });
+        el.setAttribute(attributeName, parsed);
+      }
     });
   });
 };
@@ -193,7 +202,7 @@ export const createApp = (selector: string) => {
     state: rootState,
   });
 
-  console.log(rootState);
+  console.log({ ...rootState });
 
   // const data = createReactiveClass({
   //   onUpdate(vars) {
