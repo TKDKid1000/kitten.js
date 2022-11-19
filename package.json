@@ -1,12 +1,13 @@
 {
   "name": "@tkdkid1000/kitten.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest --config vitest.config.ts"
+    "test": "vitest --config vitest.config.ts",
+    "prepublish": "yarn build"
   },
   "files": [
     "dist"
