@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Kitten.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Kitten.js - A 2.55KiB Javascript framework for quick and easy interactivity."
+    />
+    <link rel="stylesheet" href="main.css" />
+    <script
+      defer
+      src="https://unpkg.com/@tkdkid1000/kitten.js@0.0.3/dist/kitten.umd.js"
+      k-init="#app"
+    ></script>
+    <script
+      defer
+      src="http://unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"
+    ></script>
+    <link
+      rel="preload"
+      href="http://unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/default.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+  </head>
+  <body>
+    <div
+      id="app"
+      k-data="{
+        accordionPane: null
+    }"
+    >
+      <div class="navbar">
+        <div class="navbar container">
+          <nav class="nav">
+            <a href="/" class="navlink brand">
+              <img
+                src="/logo-light.png"
+                width="24"
+                height="24"
+                alt="Kitten.js logo"
+              />
+              Kitten.js
+            </a>
+          </nav>
+          <nav class="nav">
+            <a href="/docs" class="navlink">Docs</a>
+            <a href="/tutorial" class="navlink">Tutorial</a>
+            <a href="/playground" class="navlink">Playground</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
